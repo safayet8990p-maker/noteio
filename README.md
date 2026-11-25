@@ -20,9 +20,9 @@ A simple, fast, offline notebook app. The app is a single HTML page (`index.html
 ## Screenshots
 
 <p>
-  <img src="screenshots/home.png" width="240" alt="Home">
-  <img src="screenshots/editor.png" width="240" alt="Editor">
-  <img src="screenshots/history.png" width="240" alt="History">
+  <img src="screenshots/1.png" width="240" alt="Home">
+  <img src="screenshots/2.png" width="240" alt="Editor">
+  <img src="screenshots/3.png" width="240" alt="History">
 </p>
 ## Where your data lives
 
