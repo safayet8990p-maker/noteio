@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notebook</title>
+<style>
+:root{--bg:#f6f3ee;--ink:#1f2328;--mut:#6a6f76;--line:#ddd6ca;--red:#c8102e;--ok:#2f7d4f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15171a;--ink:#ece8e1;--mut:#9ea3aa;--line:#33373d;--red:#ff5a6e;--ok:#5cc489}}
+:root[data-theme="dark"]{--bg:#15171a;--ink:#ece8e1;--mut:#9ea3aa;--line:#33373d;--red:#ff5a6e;--ok:#5cc489}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+button,input,textarea,select{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.wrap{max-width:640px;margin:0 auto;padding:28px 20px 56px}
+.hidden{display:none!important}.mut{color:var(--mut);font-size:.9rem}
+.big{font-size:2.6rem;line-height:1.15;color:var(--red);font-weight:700;margin:0}
+.sub{color:var(--mut);margin:2px 0 0}
+.sg{color:var(--ok);font-weight:600}.sr{color:var(--red);font-weight:600}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:22px 0 6px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:3;padding:6px 0}
+.tabs{display:flex;gap:14px}
+.tab,.lnk{background:none;border:0;padding:4px 0;color:var(--mut);font-weight:600;cursor:pointer;border-bottom:2px solid transparent}
+.tab[aria-selected=true]{color:var(--ink);border-bottom-color:var(--red)}
+.lnk{color:var(--red)}.lnk.g{color:var(--mut);font-weight:400}
+input.s,input.add,.ta{width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;padding:8px 0;margin-bottom:4px;border-radius:0}
+.ta{border:1px solid var(--line);border-radius:6px;padding:8px;min-height:110px;resize:vertical;font-size:.85rem}
+.chip{margin:6px 0;font-size:.85rem}
+.n{padding:13px 0;border-bottom:1px solid var(--line);cursor:pointer;display:block;width:100%;text-align:left;background:none;border-width:0 0 1px}
+.n b{display:flex;justify-content:space-between;gap:10px}
+.n .p{color:var(--mut);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.n .m{color:var(--mut);font-size:.8rem}
+.dot{color:var(--red)}
+.tg{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.tg .o{flex:1;text-align:left;background:none;border:0;cursor:pointer;padding:3px 0}
+.fadd{display:flex;gap:12px;align-items:center}
+.foots{display:flex;gap:20px;margin-top:28px}
+.ed-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.ed-top div{display:flex;gap:16px}
+input.t{width:100%;border:0;background:transparent;font-size:1.5rem;font-weight:700;padding:6px 0}
+.meta{display:flex;gap:12px;border-bottom:1px solid var(--line)}
+input.tags{flex:1;min-width:0;border:0;background:transparent;padding:6px 0;color:var(--red);font-size:.9rem}
+select{border:0;background:transparent;color:var(--mut);font-size:.9rem;max-width:45%}
+textarea.b{width:100%;border:0;background:transparent;resize:none;min-height:40vh;padding:12px 0;line-height:1.7;overflow:hidden}
+.ci{display:flex;gap:12px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+.ci input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:none;width:22px;height:22px;margin:0;border:1.5px solid var(--mut);border-radius:50%;cursor:pointer;display:grid;place-items:center}
+.ci input[type=checkbox]:checked{border-color:var(--red);background:var(--red)}
+.ci input[type=checkbox]:checked::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.ci .ct{flex:1;min-width:0;border:0;background:transparent;padding:4px 0}
+.ci.done .ct{text-decoration:line-through;color:var(--mut)}
+.foot{color:var(--mut);font-size:.8rem;border-top:1px solid var(--line);padding-top:10px;margin-top:18px}
+.heat{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin:8px auto;max-width:300px}
+.heat.wd{margin-bottom:0}.wd span{text-align:center;color:var(--mut);font-size:.7rem}
+.heat i{aspect-ratio:1;border-radius:6px;background:var(--line);display:grid;place-items:center;font-style:normal;font-size:.7rem;line-height:1;color:var(--mut)}
+.heat i.l1{background:color-mix(in srgb,var(--ok) 30%,var(--line))}.heat i.l2{background:color-mix(in srgb,var(--ok) 55%,var(--line))}.heat i.l3{background:color-mix(in srgb,var(--ok) 80%,var(--line))}.heat i.l4{background:var(--ok)}
+.heat i.l3,.heat i.l4{color:#fff}
+.heat i.tod{outline:1.5px solid var(--ink);outline-offset:1px}
+.heat i.s{background:var(--red);color:#fff}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section id="vList">
+  <p class="big">Notes</p>
+  <p class="sub" id="cnt"></p>
+  <p class="sub" id="st"></p>
+
+  <div id="mainBox">
+    <div class="bar">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" data-t="all" aria-selected="true">All</button>
+        <button class="tab" role="tab" data-t="pin" aria-selected="false">Pinned</button>
+        <button class="tab" role="tab" data-t="fol" aria-selected="false">Folders</button>
+        <button class="tab" role="tab" data-t="tag" aria-selected="false">Tags</button>
+        <button class="tab" role="tab" data-t="his" aria-selected="false">History</button>
+      </div>
+      <button class="lnk" id="new">+ New</button>
+    </div>
+    <input class="s" id="q" type="search" placeholder="Search" aria-label="Search">
+    <button class="lnk chip hidden" id="chip"></button>
+    <div class="fadd hidden" id="fAdd"><input class="add" id="fIn" placeholder="New folder name" aria-label="New folder name"><button class="lnk" id="fBtn">Add</button></div>
+    <div id="hisBox" class="hidden">
+      <div class="ed-top"><button class="lnk" id="hPrev" aria-label="Previous month">‹</button><b id="hMon"></b><button class="lnk" id="hNext" aria-label="Next month">›</button></div>
+      <div class="heat wd" id="wd"></div><div class="heat" id="heat"></div>
+      <div id="hList" style="margin-top:14px"></div>
+    </div>
+    <div id="list"></div>
+    <div class="foots"><button class="lnk g" id="goTr"></button><button class="lnk g" id="goBk">Backup</button></div>
+    <p class="mut" style="margin-top:18px">Notes are stored only in this browser. Clearing browser data or opening this in another browser will not show them.</p>
+    <p class="mut" id="warn"></p>
+  </div>
+
+  <div id="trashBox" class="hidden">
+    <div class="bar"><button class="lnk" id="trBack">‹ Notes</button><button class="lnk g" id="trEmpty">Empty trash</button></div>
+    <p class="mut">Notes in the trash are deleted automatically after 30 days.</p>
+    <div id="trList"></div>
+  </div>
+
+  <div id="backBox" class="hidden">
+    <div class="bar"><button class="lnk" id="bkBack">‹ Notes</button></div>
+    <p class="mut">Downloads don’t work here, so back up by copy and paste. Copy all notes, keep the text somewhere safe, and paste it in the box below to import.</p>
+    <button class="lnk" id="bkCopy">Copy all notes</button>
+    <textarea class="ta" id="bkIn" placeholder="Paste a backup here" aria-label="Paste a backup"></textarea>
+    <button class="lnk" id="bkImp">Import</button>
+    <p class="mut" id="bkMsg"></p>
+  </div>
+</section>
+
+<section id="vEd" class="hidden">
+  <div class="ed-top">
+    <button class="lnk" id="back">‹ Notes</button>
+    <div><button class="lnk" id="pin">Pin</button><button class="lnk" id="copy">Copy</button><button class="lnk" id="del">Trash</button></div>
+  </div>
+  <input class="t" id="t" placeholder="Title" aria-label="Title">
+  <div class="meta"><input class="tags" id="tg" placeholder="tags, comma separated" aria-label="Tags"><select id="fd" aria-label="Folder"></select></div>
+  <textarea class="b" id="b" placeholder="Write…" aria-label="Note"></textarea>
+  <div id="cl"></div>
+  <button class="lnk" id="addIt">+ Checklist item</button>
+  <div class="foot" id="foot"></div>
+</section>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const bn=n=>String(n);
+const pl=(n,w)=>n+" "+w+(n===1?"":"s");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function ld(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null}catch(e){return null}}
+function save(){try{localStorage.setItem("nb_notes",JSON.stringify(notes));localStorage.setItem("nb_folders",JSON.stringify(folders));localStorage.setItem("nb_hist",JSON.stringify(hist));$("warn").textContent=""}catch(e){$("warn").textContent="Storage is off in this browser; notes will be lost when you close the page."}}
+let notes=ld("nb_notes")||[{id:1,t:"Welcome",b:"This is your notebook.\n\n• Tap “+ New” to write a note\n• Organize with tags and folders\n• Add checklist items at the bottom of a note\n• Deleted notes go to the trash and can be restored",tags:["start"],pin:true,u:Date.now()}];
+let folders=ld("nb_folders")||[];
+notes.forEach(n=>{n.tags=n.tags||[];n.f=n.f||"";n.items=n.items||[];n.del=n.del||0});
+notes=notes.filter(n=>!n.del||Date.now()-n.del<30*864e5);
+let hist=ld("nb_hist")||{};
+const dk=u=>{const d=new Date(u);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+const isW=n=>n.id===1&&(n.b.startsWith("This is your notebook")||n.b.startsWith("এটি আপনার নোটবুক"));
+if(notes.some(isW))Object.keys(hist).forEach(k=>{hist[k]=hist[k].filter(id=>id!==1)});
+notes.forEach(n=>{if(isW(n))return;const k=dk(n.u);hist[k]=hist[k]||[];if(!hist[k].includes(n.id))hist[k].push(n.id)});
+const cn=k=>(hist[k]||[]).filter(id=>{const n=notes.find(x=>x.id===id);return n&&!n.del}).length;
+let tab="all",mode="main",tagF="",folF="",cur=null,armed={},hm=0;
+const act=()=>notes.filter(n=>!n.del);
+const find=id=>notes.find(n=>n.id===id);
+const fmt=u=>new Date(u).toLocaleDateString("en-US",{month:"short",day:"numeric"});
+const fmtL=u=>new Date(u).toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"});
+const words=s=>s.trim()?s.trim().split(/\s+/).length:0;
+function arm(id,el,txt,fn){
+  if(!armed[id]){armed[id]=1;el.textContent="Confirm?";setTimeout(()=>{armed[id]=0;if(el.isConnected)el.textContent=txt},3000);return}
+  armed[id]=0;fn();
+}
+
+function render(){
+  const a=act(),tr=notes.filter(n=>n.del);
+  $("cnt").textContent=pl(a.length,"note")+" · "+a.filter(n=>n.pin).length+" pinned";
+  $("goTr").textContent="Trash ("+tr.length+")";
+  {const days=Object.keys(hist).filter(k=>cn(k)).length;let s=0,d=new Date();if(!cn(dk(d)))d.setDate(d.getDate()-1);while(cn(dk(d))>0){s++;d.setDate(d.getDate()-1)}
+  $("st").innerHTML=`<span class="sg">${pl(days,"active day")}</span> · <span class="sr">${s} day streak</span>`}
+  ["main","trash","back"].forEach(m=>$(m+"Box").classList.toggle("hidden",mode!==m));
+  if(mode==="trash")return renderTrash(tr);
+  if(mode!=="main")return;
+  const his=tab==="his";$("hisBox").classList.toggle("hidden",!his);$("q").classList.toggle("hidden",his);$("list").classList.toggle("hidden",his);
+  if(his){$("chip").classList.add("hidden");$("fAdd").classList.add("hidden");return renderHis()}
+  const f=tagF?"#"+tagF:folF?"Folder: "+folF:"";
+  $("chip").classList.toggle("hidden",!f);$("chip").textContent=f?f+" ✕":"";
+  const listing=tab==="fol"&&!folF,tagging=tab==="tag"&&!tagF;
+  $("fAdd").classList.toggle("hidden",!listing);
+  if(listing){
+    $("list").innerHTML=(folders.length?folders.map((x,i)=>`<div class="tg"><button class="o" data-f="${esc(x)}">${esc(x)} <span class="mut">${a.filter(n=>n.f===x).length}</span></button><button class="lnk g" data-d="${i}">Delete</button></div>`).join(""):'<p class="mut">No folders yet. Type a name above to add one.</p>');
+    $("list").querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{folF=b.dataset.f;tab="all";setTabs();render()});
+    $("list").querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{const i=+b.dataset.d,x=folders[i];arm("f"+i,b,"Delete",()=>{folders.splice(i,1);notes.forEach(n=>{if(n.f===x)n.f=""});save();render()})});
+    return;
+  }
+  if(tagging){
+    const m={};a.forEach(n=>n.tags.forEach(t=>m[t]=(m[t]||0)+1));const ks=Object.keys(m).sort();
+    $("list").innerHTML=ks.length?ks.map(t=>`<div class="tg"><button class="o" data-tag="${esc(t)}">#${esc(t)} <span class="mut">${m[t]}</span></button></div>`).join(""):'<p class="mut">No tags yet.</p>';
+    $("list").querySelectorAll("[data-tag]").forEach(b=>b.onclick=()=>{tagF=b.dataset.tag;tab="all";setTabs();render()});
+    return;
+  }
+  const q=$("q").value.trim().toLowerCase();
+  const r=a.filter(n=>(tab!=="pin"||n.pin)&&(!tagF||n.tags.includes(tagF))&&(!folF||n.f===folF)&&(!q||(n.t+" "+n.b+" "+n.tags.join(" ")+" "+n.items.map(i=>i.x).join(" ")).toLowerCase().includes(q)));
+  r.sort((x,y)=>(y.pin-x.pin)||(y.u-x.u));
+  $("list").innerHTML=r.length?r.map(n=>{
+    const d=n.items.filter(i=>i.d).length,meta=[n.f,...n.tags.map(t=>"#"+t),n.items.length?d+"/"+n.items.length+" done":""].filter(Boolean).map(esc).join(" · ");
+    return `<button class="n" data-id="${n.id}"><b><span>${n.pin?'<span class="dot">● </span>':""}${esc(n.t||"Untitled")}</span><span class="m">${fmt(n.u)}</span></b><span class="p">${esc(n.b.split("\n").find(l=>l.trim())||(n.items[0]?"☐ "+n.items[0].x:"No text"))}</span>${meta?`<span class="m">${meta}</span>`:""}</button>`}).join(""):`<p class="mut" style="margin-top:14px">${q||tagF||folF||tab==="pin"?"No notes found.":"No notes yet. Tap “+ New” to start."}</p>`;
+  $("list").querySelectorAll(".n").forEach(b=>b.onclick=()=>open(+b.dataset.id));
+}
+function renderHis(){
+  const now=new Date(),b=new Date(now.getFullYear(),now.getMonth()+hm,1),y=b.getFullYear(),m=b.getMonth(),len=new Date(y,m+1,0).getDate(),off=b.getDay();
+  $("hMon").textContent=b.toLocaleDateString("en-US",{month:"long",year:"numeric"});$("hNext").style.visibility=hm>=0?"hidden":"visible";
+  $("wd").innerHTML=["S","M","T","W","T","F","S"].map(x=>`<span>${x}</span>`).join("");
+  let h="<i style='visibility:hidden'></i>".repeat(off),ks=[];
+  for(let d=1;d<=len;d++){const k=dk(new Date(y,m,d)),c=cn(k),st=c&&(cn(dk(new Date(y,m,d-1)))||cn(dk(new Date(y,m,d+1))));if(c)ks.push(k);h+=`<i class="${c?"l"+Math.min(4,c):""}${st?" s":""}${k===dk(now)?" tod":""}" title="${k}: ${c}">${d}</i>`}
+  $("heat").innerHTML=h;ks.reverse();
+  $("hList").innerHTML=ks.length?ks.map(k=>{const t=hist[k].map(id=>find(id)).filter(n=>n&&!n.del).map(n=>n.t||"Untitled");return `<div class="tg"><div style="min-width:0"><b>${new Date(k+"T00:00").toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})}</b><div class="mut">${esc(t.slice(0,3).join(", "))}${t.length>3?" …":""}</div></div><span class="mut" style="white-space:nowrap">${pl(t.length,"note")}</span></div>`}).join(""):'<p class="mut">No active days this month.</p>';
+}
+$("hPrev").onclick=()=>{hm--;renderHis()};$("hNext").onclick=()=>{if(hm<0){hm++;renderHis()}};
+function renderTrash(tr){
+  tr.sort((x,y)=>y.del-x.del);
+  $("trList").innerHTML=tr.length?tr.map(n=>`<div class="tg"><div style="min-width:0"><b>${esc(n.t||"Untitled")}</b><div class="mut">Deleted ${fmt(n.del)}</div></div><div style="display:flex;gap:14px;white-space:nowrap"><button class="lnk" data-r="${n.id}">Restore</button><button class="lnk g" data-x="${n.id}">Delete forever</button></div></div>`).join(""):'<p class="mut">Trash is empty.</p>';
+  $("trList").querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{find(+b.dataset.r).del=0;save();render()});
+  $("trList").querySelectorAll("[data-x]").forEach(b=>b.onclick=()=>arm("x"+b.dataset.x,b,"Delete forever",()=>{notes=notes.filter(n=>n.id!==+b.dataset.x);save();render()}));
+}
+function setTabs(){document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x.dataset.t===tab))}
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{tab=b.dataset.t;tagF="";folF="";setTabs();render()});
+$("chip").onclick=()=>{tagF="";folF="";render()};
+$("q").oninput=()=>{if(tab==="tag"||tab==="fol"){tab="all";setTabs()}render()};
+const addF=()=>{const v=$("fIn").value.trim();if(v&&!folders.includes(v)){folders.push(v);save()}$("fIn").value="";render()};
+$("fBtn").onclick=addF;$("fIn").onkeydown=e=>{if(e.key==="Enter")addF()};
+$("goTr").onclick=()=>{mode="trash";render()};$("goBk").onclick=()=>{mode="back";$("bkMsg").textContent="";render()};
+$("trBack").onclick=$("bkBack").onclick=()=>{mode="main";render()};
+$("trEmpty").onclick=e=>arm("te",e.target,"Empty trash",()=>{notes=notes.filter(n=>!n.del);save();render()});
+$("bkCopy").onclick=async()=>{const s=JSON.stringify({notes,folders});try{await navigator.clipboard.writeText(s);$("bkMsg").textContent=pl(notes.length,"note")+" copied. Paste it somewhere safe."}catch(e){$("bkIn").value=s;$("bkIn").select();$("bkMsg").textContent="Auto-copy failed. Copy the text in the box yourself."}};
+$("bkImp").onclick=()=>{try{const d=JSON.parse($("bkIn").value);let c=0;(d.notes||[]).forEach(n=>{if(n&&n.id&&!find(n.id)){notes.push({id:n.id,t:String(n.t||""),b:String(n.b||""),tags:Array.isArray(n.tags)?n.tags.map(String):[],f:String(n.f||""),items:Array.isArray(n.items)?n.items.map(i=>({x:String(i.x||""),d:i.d?1:0})):[],pin:!!n.pin,del:+n.del||0,u:+n.u||Date.now()});c++}});(d.folders||[]).forEach(x=>{if(!folders.includes(x))folders.push(String(x))});notes.forEach(n=>{if(isW(n))return;const k=dk(n.u);hist[k]=hist[k]||[];if(!hist[k].includes(n.id))hist[k].push(n.id)});save();$("bkIn").value="";$("bkMsg").textContent=pl(c,"new note")+" imported.";render()}catch(e){$("bkMsg").textContent="Couldn’t read that backup. Make sure you pasted all of it."}};
+
+function grow(){const t=$("b");t.style.height="auto";t.style.height=Math.max(t.scrollHeight,window.innerHeight*.4)+"px"}
+function foot(){const n=find(cur);$("foot").textContent=pl(words(n.b),"word")+" · "+pl(n.b.length,"character")+" · Last edited "+fmtL(n.u)}
+function touch(){const n=find(cur);n.u=Date.now();const k=dk(n.u);if(!isW(n)){hist[k]=hist[k]||[];if(!hist[k].includes(n.id))hist[k].push(n.id)}save();foot()}
+function renderItems(focus){
+  const n=find(cur);
+  $("cl").innerHTML=n.items.map((it,i)=>`<div class="ci ${it.d?"done":""}"><input type="checkbox" data-i="${i}" ${it.d?"checked":""} aria-label="Done"><input class="ct" data-i="${i}" value="${esc(it.x)}" placeholder="Item" aria-label="Item"><button class="lnk g" data-i="${i}" aria-label="Remove">✕</button></div>`).join("");
+  $("cl").querySelectorAll("input[type=checkbox]").forEach(e=>e.onchange=()=>{n.items[+e.dataset.i].d=e.checked?1:0;renderItems();touch()});
+  $("cl").querySelectorAll(".ct").forEach(e=>{e.oninput=()=>{n.items[+e.dataset.i].x=e.value;touch()};e.onkeydown=k=>{if(k.key==="Enter")addItem()}});
+  $("cl").querySelectorAll("button").forEach(e=>e.onclick=()=>{n.items.splice(+e.dataset.i,1);renderItems();touch()});
+  if(focus){const c=$("cl").querySelectorAll(".ct");if(c.length)c[c.length-1].focus()}
+}
+function addItem(){find(cur).items.push({x:"",d:0});renderItems(true);touch()}
+$("addIt").onclick=addItem;
+function open(id){
+  cur=id;const n=find(id);armed={};$("del").textContent="Trash";
+  $("t").value=n.t;$("tg").value=n.tags.join(", ");$("b").value=n.b;$("pin").textContent=n.pin?"Unpin":"Pin";
+  $("fd").innerHTML='<option value="">No folder</option>'+folders.map(x=>`<option value="${esc(x)}" ${x===n.f?"selected":""}>${esc(x)}</option>`).join("");
+  $("vList").classList.add("hidden");$("vEd").classList.remove("hidden");grow();renderItems();foot();
+  if(!n.t&&!n.b)$("t").focus();window.scrollTo(0,0);
+}
+function leave(){cur=null;$("vEd").classList.add("hidden");$("vList").classList.remove("hidden");render()}
+$("back").onclick=()=>{const n=find(cur);if(n&&!n.t.trim()&&!n.b.trim()&&!n.tags.length&&!n.items.length){notes=notes.filter(x=>x.id!==cur);save()}leave()};
+$("t").oninput=e=>{find(cur).t=e.target.value;touch()};
+$("b").oninput=e=>{find(cur).b=e.target.value;grow();touch()};
+$("tg").oninput=e=>{find(cur).tags=[...new Set(e.target.value.split(/[,،]/).map(s=>s.trim().replace(/^#/,"")).filter(Boolean))];touch()};
+$("fd").onchange=e=>{find(cur).f=e.target.value;touch()};
+$("pin").onclick=()=>{const n=find(cur);n.pin=!n.pin;$("pin").textContent=n.pin?"Unpin":"Pin";touch()};
+$("copy").onclick=async()=>{const n=find(cur),L=n.items.map(i=>(i.d?"[x] ":"[ ] ")+i.x).join("\n");try{await navigator.clipboard.writeText([n.t,n.b,L].filter(Boolean).join("\n\n"));$("copy").textContent="Copied ✓"}catch(e){$("copy").textContent="Copy failed"}setTimeout(()=>$("copy").textContent="Copy",1800)};
+$("del").onclick=e=>arm("del",e.target,"Trash",()=>{find(cur).del=Date.now();save();leave()});
+$("new").onclick=()=>{const n={id:Date.now(),t:"",b:"",tags:tagF?[tagF]:[],f:folF,items:[],pin:false,del:0,u:Date.now()};notes.push(n);save();open(n.id)};
+render();
+</script>
+</body>
+</html>
