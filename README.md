@@ -17,15 +17,6 @@ A simple, fast, offline notebook app. The app is a single HTML page (`index.html
 - **Backup**: copy all notes as text, keep it somewhere safe, and paste it back to import
 - **Dark mode**: follows the phone's light or dark theme
 
-## Screenshots
-
-<p>
-  <img src="screenshot/1.png" width="240" alt="Home">
-  <img src="screenshot/2.png" width="240" alt="Editor">
-  <img src="screenshot/3.png" width="240" alt="History">
-  <img src="screenshot/4.png" width="240" alt="History">
-  <img src="screenshot/5.png" width="240" alt="History">
-</p>
 ## Where your data lives
 
 Notes stay on the phone and are never sent to a server. They are stored in the app's WebView localStorage.
@@ -97,7 +88,7 @@ The APK is signed with `app/notebook-release.jks`.
 
 Both debug and release builds use this key (configured in `app/build.gradle`).
 
-> **Warning:** the keystore and its password are in the repo. If the repo is public, anyone can sign with this key. Keep the repo private for personal use. To publish on the Play Store, create a new key and keep its password secret (for example in GitHub Secrets). Future updates must be signed with the same keystore, so do not lose it.
+> **Note:** This repository is public, so anyone can view and copy the code. Please do not use it for earning money or for any commercial purpose. The signing keystore and its password are public too, so this key is not secret; if you build your own version, create your own key instead of reusing this one.
 
 ## App behavior
 
@@ -196,7 +187,7 @@ APK `app/notebook-release.jks` দিয়ে sign হয়।
 
 debug ও release দুই build-ই এই key ব্যবহার করে (`app/build.gradle`-এ কনফিগ করা)।
 
-> **সতর্কতা:** keystore ও password repo-তেই আছে। repo public হলে যে কেউ এই key দিয়ে sign করতে পারবে। শুধু নিজের ব্যবহারের হলে repo private রাখুন। Play Store-এ প্রকাশ করতে চাইলে নতুন key বানিয়ে password গোপন রাখুন (যেমন GitHub Secrets-এ)। পরে update দিতে হলে একই keystore লাগবে, তাই এটি হারাবেন না।
+> **দ্রষ্টব্য:** এই repo public, তাই যে কেউ কোড দেখতে ও কপি করতে পারবে। কিন্তু দয়া করে এটি আয়ের জন্য বা কোনো বাণিজ্যিক কাজে ব্যবহার করবেন না। signing keystore ও তার password-ও public, তাই এই key গোপন নয়; নিজের সংস্করণ বানালে এটি পুনরায় ব্যবহার না করে নিজের নতুন key বানিয়ে নিন।
 
 ## অ্যাপের আচরণ
 
