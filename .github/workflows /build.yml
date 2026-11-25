@@ -13,6 +13,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Locate Android project
+        run: |
+          f=$(find . -name settings.gradle -not -path './.git/*' | head -n1)
+          if [ -z "$f" ]; then
+            echo "settings.gradle not found in the repository. Files present:"
+            find . -not -path './.git/*' -type f | head -50
+            exit 1
+          fi
+          echo "PROJECT_DIR=$(dirname "$f")" >> "$GITHUB_ENV"
+          echo "Project directory: $(dirname "$f")"
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -25,11 +36,12 @@ jobs:
           gradle-version: '8.7'
 
       - name: Build signed release APK
+        working-directory: ${{ env.PROJECT_DIR }}
         run: gradle assembleRelease --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Notebook-apk
-          path: app/build/outputs/apk/release/app-release.apk
+          path: ${{ env.PROJECT_DIR }}/app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
