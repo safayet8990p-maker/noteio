@@ -17,6 +17,13 @@ A simple, fast, offline notebook app. The app is a single HTML page (`index.html
 - **Backup**: copy all notes as text, keep it somewhere safe, and paste it back to import
 - **Dark mode**: follows the phone's light or dark theme
 
+## Screenshots
+
+<p>
+  <img src="screenshots/home.png" width="240" alt="Home">
+  <img src="screenshots/editor.png" width="240" alt="Editor">
+  <img src="screenshots/history.png" width="240" alt="History">
+</p>
 ## Where your data lives
 
 Notes stay on the phone and are never sent to a server. They are stored in the app's WebView localStorage.
